@@ -73,6 +73,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
+
             reader.onload = function (e) {
                 preview.src = e.target.result;
                 preview.style.display = 'block';

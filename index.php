@@ -37,6 +37,7 @@
             <th scope="col">Photo</th>
             <th scope="col">Name</th>
             <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -58,11 +59,59 @@
             <td>
                 <a href="#" class="btn btn-info">View</a>
             </td>
+            <td>
+                <a href="#" data-delete="<?php echo $row["Id"] ?>" class="btn btn-danger">Delete</a>
+            </td>
         </tr>
             <?php  } ?>
         </tbody>
     </table>
 </div>
+
+<div class="modal" tabindex="-1" role="dialog" id="modalDelete">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>You sure you want to delete this product?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" id="btnDeleteConfirm" class="btn btn-danger">Delete</button>
+                <!-- Additional buttons if needed -->
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/axios.min.js"></script>
+<script>
+    let id  = 0;
+    const list = document.querySelectorAll('[data-delete]');
+    //console.log("List elements", list);
+    // Convert NodeList to an array (optional)
+    var myModal = new bootstrap.Modal(document.getElementById('modalDelete'));
+    const elementsArray = Array.from(list);
+    // Log the elements or perform further operations
+    elementsArray.forEach(item => {
+        item.addEventListener("click", (e) => {
+            e.preventDefault();
+            id=e.target.dataset.delete;
+            myModal.show();
+            //axios.post("");
+            // console.log("delete item", id);
+            // e.target.closest("tr").remove();
+        });
+        //console.log("item", item);
+    });
+    document.getElementById("btnDeleteConfirm").addEventListener("click", ()=>{
+        console.log("Id for delete: ", id);
+        myModel.hide();
+    })
+</script>
 </body>
 </html>
